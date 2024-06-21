@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://bekx16j46q3jq"]
 
-[ext_resource type="Script" path="res://map.gd" id="1_lplta"]
 [ext_resource type="Texture2D" uid="uid://4hsj5k05thrp" path="res://grass.jpeg" id="2_67drj"]
 [ext_resource type="Texture2D" uid="uid://cen1aohi4cnfy" path="res://ocean.jpeg" id="3_4y0op"]
-[ext_resource type="Script" path="res://TestTileMap.gd" id="3_5uxgj"]
+[ext_resource type="Script" path="res://scripts/TestTileMap.gd" id="3_5uxgj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cpll2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwkt7"]
 texture = ExtResource("2_67drj")
@@ -530,9 +531,10 @@ tile_size = Vector2i(1, 1)
 sources/1 = SubResource("TileSetAtlasSource_t45hb")
 sources/0 = SubResource("TileSetAtlasSource_xwkt7")
 
-[node name="Node2D" type="Node2D"]
+[node name="Map" type="Node2D"]
 position = Vector2(0, 1)
-script = ExtResource("1_lplta")
+script = ExtResource("3_5uxgj")
+map_noise = SubResource("NoiseTexture2D_cpll2")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_f8ljm")

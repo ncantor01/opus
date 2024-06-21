@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://312wytljmfbp"]
+
+[ext_resource type="PackedScene" uid="uid://bwhfee4r2o2ya" path="res://scripts/character_scripts/characters/character_base_node/Character_base_node.tscn" id="1_vcfl7"]
+[ext_resource type="PackedScene" uid="uid://bxee828oqj0ky" path="res://scripts/character_scripts/behaviors/player_movement_behavior/player_movement_behavior.tscn" id="2_kq1t5"]
+[ext_resource type="Script" path="res://scripts/character_scripts/characters/player_character_debug.gd" id="3_lhhdl"]
+[ext_resource type="PackedScene" uid="uid://ciwi7sa65cxtt" path="res://scripts/weapons/spear/spear.tscn" id="4_hgvi0"]
+[ext_resource type="Texture2D" uid="uid://xirw3vkkv7wa" path="res://icon.svg" id="5_7qvpr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gx47t"]
+size = Vector2(137, 129)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vrb3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_7qvpr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_7qvpr")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="player_character" instance=ExtResource("1_vcfl7")]
+scale = Vector2(0.4, 0.4)
+SPEED = 200
+metadata/Player = true
+
+[node name="PlayerMovementBehavior" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_kq1t5")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0"]
+position = Vector2(2.5, 1.5)
+shape = SubResource("RectangleShape2D_gx47t")
+
+[node name="player_character_debug" type="Node2D" parent="." index="4"]
+script = ExtResource("3_lhhdl")
+
+[node name="spear" parent="player_character_debug" index="0" instance=ExtResource("4_hgvi0")]
+bonus_damage = null
+
+[node name="sprite" parent="." index="5"]
+sprite_frames = SubResource("SpriteFrames_vrb3i")
+animation = &"idle"

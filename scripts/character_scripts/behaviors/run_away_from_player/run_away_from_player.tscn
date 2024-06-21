@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch8pjtrnisbtv"]
+
+[ext_resource type="Script" path="res://scripts/character_scripts/behaviors/run_away_from_player/run_away_from_player.gd" id="1_cyfgb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wd3g"]
+radius = 37.4134
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3gyud"]
+radius = 597.753
+
+[node name="run_away_from_player" type="Node2D"]
+script = ExtResource("1_cyfgb")
+
+[node name="Detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection_area"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_0wd3g")
+
+[node name="Run_away_to_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Run_away_to_area"]
+shape = SubResource("CircleShape2D_3gyud")
+
+[connection signal="body_entered" from="Detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="Run_away_to_area" to="." method="_on_run_away_to_area_body_exited"]

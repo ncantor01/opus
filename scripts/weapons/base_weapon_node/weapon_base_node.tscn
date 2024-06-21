@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dou7jp0cf45yw"]
+
+[ext_resource type="Script" path="res://scripts/weapons/base_weapon_node/base_weapon.gd" id="1_8iu05"]
+[ext_resource type="Script" path="res://scripts/weapons/base_weapon_node/hitbox.gd" id="2_lb58x"]
+[ext_resource type="Script" path="res://scripts/weapons/spear/hitbox_area.gd" id="2_pifel"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6l2p"]
+size = Vector2(75, 29.5)
+
+[node name="Weapon_base_node" type="Node2D"]
+script = ExtResource("1_8iu05")
+
+[node name="sprite" type="Sprite2D" parent="."]
+
+[node name="hitbox" type="Area2D" parent="."]
+script = ExtResource("2_lb58x")
+
+[node name="hitbox_area" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_e6l2p")
+script = ExtResource("2_pifel")
+
+[node name="primary_attack_behavior_node" type="Node2D" parent="."]
+
+[node name="secondary_attack_behavior_node" type="Node2D" parent="."]

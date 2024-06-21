@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://312wytljmfbp"]
+
+[ext_resource type="PackedScene" uid="uid://bwhfee4r2o2ya" path="res://scripts/character_scripts/character_base_node/Character_base_node.tscn" id="1_o5aus"]
+[ext_resource type="PackedScene" uid="uid://bxee828oqj0ky" path="res://scripts/character_scripts/behaviors/player_movement_behavior/player_movement_behavior.tscn" id="2_kq1t5"]
+[ext_resource type="Script" path="res://scripts/character_scripts/characters/player_character_debug.gd" id="3_lhhdl"]
+[ext_resource type="PackedScene" uid="uid://ciwi7sa65cxtt" path="res://scripts/weapons/spear.tscn" id="4_f6v1j"]
+
+[node name="player_character" instance=ExtResource("1_o5aus")]
+SPEED = 100
+metadata/Player = true
+
+[node name="PlayerMovementBehavior" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_kq1t5")]
+
+[node name="player_character_debug" type="Node2D" parent="." index="4"]
+script = ExtResource("3_lhhdl")
+
+[node name="spear" parent="player_character_debug" index="0" instance=ExtResource("4_f6v1j")]

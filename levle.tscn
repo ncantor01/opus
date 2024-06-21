@@ -1,3 +1,20 @@
-[gd_scene format=3 uid="uid://mkn1qjhl7t6l"]
+[gd_scene load_steps=4 format=3 uid="uid://mkn1qjhl7t6l"]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource type="PackedScene" uid="uid://bq2chmdfi5qp2" path="res://terrain.tscn" id="2_ukv7q"]
+[ext_resource type="PackedScene" uid="uid://ycocw6jveupw" path="res://scripts/character_scripts/characters/prey.tscn" id="3_5u7mj"]
+[ext_resource type="PackedScene" uid="uid://312wytljmfbp" path="res://scripts/character_scripts/characters/player_character.tscn" id="3_cqamm"]
+
+[node name="Level" type="Node2D"]
+
+[node name="terrain" parent="." instance=ExtResource("2_ukv7q")]
+
+[node name="player_character" parent="." instance=ExtResource("3_cqamm")]
+position = Vector2(-109, -5)
+scale = Vector2(0.2, 0.2)
+SPEED = 100
+
+[node name="prey" parent="." instance=ExtResource("3_5u7mj")]
+position = Vector2(45, -2)
+scale = Vector2(0.145, 0.145)
+SPEED = 50
+HEALTH = 40

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccsxfhufvxyyt"]
+
+[ext_resource type="Script" path="res://scripts/character_scripts/behaviors/idle_movement_behavior/light_idle_movement_behavior.gd" id="1_dywrm"]
+
+[node name="light_idle_movement_behavior" type="Node2D"]
+script = ExtResource("1_dywrm")

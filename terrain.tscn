@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq2chmdfi5qp2"]
+
+[ext_resource type="Script" path="res://scripts/terrain.gd" id="1_073iv"]
+[ext_resource type="Texture2D" uid="uid://3lpvy0qtn26u" path="res://meadow tiles.png" id="1_u5gdr"]
+[ext_resource type="Script" path="res://scripts/character_scripts/terrain_tile_map.gd" id="2_21rhs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_axp2k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vv7hl"]
+texture = ExtResource("1_u5gdr")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/probability = 0.5
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:0/0/terrains_peering_bit/left_side = 0
+0:0/0/terrains_peering_bit/top_left_corner = 0
+0:0/0/terrains_peering_bit/top_side = 0
+0:0/0/terrains_peering_bit/top_right_corner = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/probability = 0.5
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+1:0/0/terrains_peering_bit/left_side = 0
+1:0/0/terrains_peering_bit/top_left_corner = 0
+1:0/0/terrains_peering_bit/top_side = 0
+1:0/0/terrains_peering_bit/top_right_corner = 0
+
+[sub_resource type="TileSet" id="TileSet_ao5tj"]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Meadow 0"
+terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 0.25098, 1)
+sources/0 = SubResource("TileSetAtlasSource_vv7hl")
+
+[node name="Terrain" type="Node2D"]
+script = ExtResource("1_073iv")
+terrain_noise = SubResource("NoiseTexture2D_axp2k")
+
+[node name="Terrain_tile_map" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ao5tj")
+format = 2
+layer_0/name = "ground"
+layer_0/z_index = -1
+script = ExtResource("2_21rhs")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

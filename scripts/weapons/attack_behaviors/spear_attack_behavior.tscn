@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctmjef7o5gw65"]
+
+[ext_resource type="Script" path="res://scripts/weapons/attack_behaviors/spear_attack_behavior.gd" id="1_chd7o"]
+
+[node name="SpearAttackBehavior" type="Node2D"]
+script = ExtResource("1_chd7o")

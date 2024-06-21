@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://ycocw6jveupw"]
+
+[ext_resource type="PackedScene" uid="uid://bwhfee4r2o2ya" path="res://scripts/character_scripts/characters/character_base_node/Character_base_node.tscn" id="1_kmg0h"]
+[ext_resource type="PackedScene" uid="uid://ch8pjtrnisbtv" path="res://scripts/character_scripts/behaviors/run_away_from_player/run_away_from_player.tscn" id="2_b6y30"]
+[ext_resource type="Texture2D" uid="uid://p4nasngsbig8" path="res://sprites/prey_sprite.png" id="3_s78pc"]
+[ext_resource type="PackedScene" uid="uid://ccsxfhufvxyyt" path="res://scripts/character_scripts/behaviors/idle_movement_behavior/light_idle_movement_behavior.tscn" id="3_wbhkq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ilf3"]
+size = Vector2(117, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sewv"]
+atlas = ExtResource("3_s78pc")
+region = Rect2(0, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbqg0"]
+atlas = ExtResource("3_s78pc")
+region = Rect2(0, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3x3l"]
+atlas = ExtResource("3_s78pc")
+region = Rect2(64, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoyvt"]
+atlas = ExtResource("3_s78pc")
+region = Rect2(128, 0, 64, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxnon"]
+atlas = ExtResource("3_s78pc")
+region = Rect2(192, 0, 64, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tutpt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sewv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbqg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3x3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoyvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxnon")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[node name="prey" instance=ExtResource("1_kmg0h")]
+SPEED = 100
+
+[node name="run_away_from_player" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_b6y30")]
+visible = false
+afraid_of = Array[StringName]([&"Player"])
+detection_radius_multiplier = 1
+
+[node name="light_idle_movement_behavior" parent="BehaviorBaseNode" index="1" instance=ExtResource("3_wbhkq")]
+unmoving_ticks = 45
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0"]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_0ilf3")
+
+[node name="sprite" parent="." index="4"]
+position = Vector2(10, -23)
+scale = Vector2(2.7381, 2.7381)
+sprite_frames = SubResource("SpriteFrames_tutpt")
+animation = &"move"

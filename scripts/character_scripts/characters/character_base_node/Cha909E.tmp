@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwhfee4r2o2ya"]
+
+[ext_resource type="Script" path="res://scripts/base_character_body.gd" id="1_nxexe"]
+[ext_resource type="Texture2D" uid="uid://xirw3vkkv7wa" path="res://icon.svg" id="2_ri28y"]
+[ext_resource type="PackedScene" uid="uid://dj57hu2ksygeg" path="res://scripts/character_scripts/character_base_node/behavior_base_node/behavior_base_node.tscn" id="3_2fxrx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtuan"]
+
+[node name="Character_base_node" type="CharacterBody2D"]
+script = ExtResource("1_nxexe")
+SPEED = 300
+HEALTH = null
+metadata/player = ""
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mtuan")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ri28y")
+
+[node name="BehaviorBaseNode" parent="." instance=ExtResource("3_2fxrx")]
+
+[node name="WeaponsBaseNode" type="Node2D" parent="."]
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

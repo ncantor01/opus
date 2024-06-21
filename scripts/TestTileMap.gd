@@ -1,7 +1,7 @@
 extends TileMap
 
 
-var map_noise = FastNoiseLite.new()
+@export var map_noise : NoiseTexture2D
 @export var tiles_across :int = 16
 @export var ocean_percent:float = 1;
 @export var map_width = 500
