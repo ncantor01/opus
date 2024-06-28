@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bxee828oqj0ky"]
+[gd_scene load_steps=3 format=3 uid="uid://bxee828oqj0ky"]
 
 [ext_resource type="Script" path="res://scripts/character_scripts/behaviors/player_movement_behavior/player_movement_behavior.gd" id="1_5xq0s"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_owuxp"]
+radius = 70.0286
+
 [node name="PlayerMovementBehavior" type="Node2D"]
 script = ExtResource("1_5xq0s")
+
+[node name="Interactable_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable_area"]
+shape = SubResource("CircleShape2D_owuxp")
+
+[connection signal="body_entered" from="Interactable_area" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="Interactable_area" to="." method="_on_interactable_area_body_exited"]

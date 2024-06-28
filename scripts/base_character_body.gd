@@ -1,15 +1,31 @@
 extends CharacterBody2D
 
-@export var SPEED = 100
+@export var BASE_SPEED = 100
+@export var run_modifier = 2
+@export var crouch_modifier = 0.25
+@export var drag_modifier = 0.5
+var speed = BASE_SPEED
 @export var HEALTH = 100
+var held_item = null
+var dragged = null
+
+
+var WALKING = 0
+const   RUNNING = 1
+const CROUCHING = 2
+const  DRAGGING = 3
+const  DEAD = 4
+var character_state = WALKING
 
 func _enter_tree():
-	set_meta(&"character", self)
+	owner.set_meta(&"character", self)
+	owner.set_meta(&"interactable", [])
 
 func _physics_process(delta):
 	if HEALTH == 0:
 		die()
-	velocity = $BehaviorBaseNode.get_velocity() * SPEED 
+	set_speed_based_on_state()
+	velocity = $BehaviorBaseNode.get_velocity() * speed 
 	if velocity.x < 0:
 		$sprite.flip_h = true
 	if velocity.x > 0:
@@ -18,6 +34,10 @@ func _physics_process(delta):
 		$sprite.play("move")
 	else:
 		$sprite.play("idle")
+	
+	if dragged != null:
+		velocity = dragged.get_velocity()
+		
 	move_and_slide()
 
 func equip(weapon: Node2D):
@@ -26,7 +46,13 @@ func equip(weapon: Node2D):
 	$WeaponsBaseNode.add_child(weapon_dupe)
 	
 func die():
-	visible = false
+	$sprite.play("dead")
+	speed = 0
+	set_state(DEAD)
+	set_meta(&"corpse", true)
+	#TODO extract this into behaviors
+	remove_meta(&"interactable")
+	set_meta(&"interactable", [&"draggable", &"butcherable"])
 	pass
 	
 func get_weapon():
@@ -52,3 +78,42 @@ func _on_hurtbox_area_entered(area):
 		assert(area.get_meta(&"damage").has_meta(&"weapon"))
 		take_damage(area.get_meta(&"damage"))
 	pass # Replace with function body.
+	
+func set_speed_based_on_state():
+	match character_state:
+		WALKING:
+			speed = BASE_SPEED
+		RUNNING: 
+			speed = BASE_SPEED * run_modifier
+		CROUCHING:
+			speed = BASE_SPEED * crouch_modifier
+		DRAGGING:
+			speed = BASE_SPEED * drag_modifier
+		DEAD:
+			speed = 0
+
+func set_state(input_state):
+	character_state = input_state
+	pass
+
+func get_state():
+	return character_state
+
+func unset_held_item():
+	held_item = null
+	pass
+	
+func set_held_item(item: Node2D):
+	assert(item.has_meta(&"item"))
+	held_item = item
+	pass
+
+func get_held_item():
+	return held_item
+
+func drag(dragger):
+	dragged = dragger
+
+func undrag():
+	print("undragd")
+	dragged = null

@@ -30,7 +30,6 @@ animations = [{
 
 [node name="player_character" instance=ExtResource("1_vcfl7")]
 scale = Vector2(0.4, 0.4)
-SPEED = 200
 metadata/Player = true
 
 [node name="PlayerMovementBehavior" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_kq1t5")]

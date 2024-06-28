@@ -11,10 +11,8 @@
 [node name="player_character" parent="." instance=ExtResource("3_cqamm")]
 position = Vector2(-109, -5)
 scale = Vector2(0.2, 0.2)
-SPEED = 100
 
 [node name="prey" parent="." instance=ExtResource("3_5u7mj")]
 position = Vector2(45, -2)
 scale = Vector2(0.145, 0.145)
-SPEED = 50
 HEALTH = 40
