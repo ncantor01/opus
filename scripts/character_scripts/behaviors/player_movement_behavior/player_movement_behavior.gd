@@ -6,6 +6,7 @@ var dragged = null
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():
 	set_meta(&"behavior", ["movement"])
+	owner.get_collisionBox().disabled = true
 	pass
 
 func _exit_tree():

@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var run_modifier = 2
 @export var crouch_modifier = 0.25
 @export var drag_modifier = 0.5
+var detected = {}
 var speed = BASE_SPEED
 @export var HEALTH = 100
 var held_item = null
@@ -53,6 +54,8 @@ func die():
 	#TODO extract this into behaviors
 	remove_meta(&"interactable")
 	set_meta(&"interactable", [&"draggable", &"butcherable"])
+	motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
+	$hurtbox/hurtBoxCollisionShape.disabled = true
 	pass
 	
 func get_weapon():
@@ -92,6 +95,12 @@ func set_speed_based_on_state():
 		DEAD:
 			speed = 0
 
+func detect(found:Node2D):
+	detected[found.get_instance_id()] = found
+
+func undetect(lost:Node2D):
+	detected.erase(lost.get_instance_id())
+	
 func set_state(input_state):
 	character_state = input_state
 	pass
@@ -117,3 +126,6 @@ func drag(dragger):
 func undrag():
 	print("undragd")
 	dragged = null
+
+func get_collisionBox():
+	return $collisionBox

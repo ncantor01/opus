@@ -47,3 +47,6 @@ bonus_damage = null
 [node name="sprite" parent="." index="5"]
 sprite_frames = SubResource("SpriteFrames_vrb3i")
 animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
+zoom = Vector2(2, 2)
