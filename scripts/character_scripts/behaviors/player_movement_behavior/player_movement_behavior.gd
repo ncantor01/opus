@@ -7,6 +7,7 @@ var dragged = null
 func _enter_tree():
 	set_meta(&"behavior", ["movement"])
 	owner.get_collisionBox().disabled = true
+	owner.set_meta(&"player", true)
 	pass
 
 func _exit_tree():

@@ -19,8 +19,8 @@ const  DEAD = 4
 var character_state = WALKING
 
 func _enter_tree():
-	owner.set_meta(&"character", self)
-	owner.set_meta(&"interactable", [])
+	set_meta(&"character", self)
+	set_meta(&"interactable", [])
 
 func _physics_process(delta):
 	if HEALTH == 0:
@@ -100,6 +100,9 @@ func detect(found:Node2D):
 
 func undetect(lost:Node2D):
 	detected.erase(lost.get_instance_id())
+
+func get_detected():
+	return detected
 	
 func set_state(input_state):
 	character_state = input_state

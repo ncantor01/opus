@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwhfee4r2o2ya"]
+[gd_scene load_steps=6 format=3 uid="uid://bwhfee4r2o2ya"]
 
 [ext_resource type="Script" path="res://scripts/base_character_body.gd" id="1_8f2sq"]
+[ext_resource type="Script" path="res://scripts/character_scripts/characters/character_base_node/Sense_coordinator.gd" id="3_8j6iy"]
 [ext_resource type="PackedScene" uid="uid://dj57hu2ksygeg" path="res://scripts/character_scripts/characters/character_base_node/behavior_base_node/behavior_base_node.tscn" id="3_orie2"]
+[ext_resource type="Script" path="res://scripts/character_scripts/Sense.gd" id="3_r6swu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mtuan"]
 size = Vector2(116, 125)
@@ -22,5 +24,20 @@ shape = SubResource("RectangleShape2D_mtuan")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 animation = &""
 
+[node name="Sense_coordinator" type="Node2D" parent="."]
+script = ExtResource("3_8j6iy")
+
+[node name="Sight" type="Area2D" parent="Sense_coordinator"]
+script = ExtResource("3_r6swu")
+
+[node name="Hearing" type="Area2D" parent="Sense_coordinator"]
+script = ExtResource("3_r6swu")
+
+[node name="Smell" type="Area2D" parent="Sense_coordinator"]
+script = ExtResource("3_r6swu")
+
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="area_shape_entered" from="Sense_coordinator/Sight" to="Sense_coordinator" method="_on_sight_area_shape_entered"]
+[connection signal="area_entered" from="Sense_coordinator/Hearing" to="Sense_coordinator" method="_on_hearing_area_entered"]
+[connection signal="area_exited" from="Sense_coordinator/Smell" to="Sense_coordinator" method="_on_smell_area_exited"]
