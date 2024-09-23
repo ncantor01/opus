@@ -4,11 +4,11 @@ extends CharacterBody2D
 @export var run_modifier = 2
 @export var crouch_modifier = 0.25
 @export var drag_modifier = 0.5
-var detected = {}
 var speed = BASE_SPEED
 @export var HEALTH = 100
 var held_item = null
 var dragged = null
+var interactables = {}
 
 
 var WALKING = 0
@@ -16,15 +16,13 @@ const   RUNNING = 1
 const CROUCHING = 2
 const  DRAGGING = 3
 const  DEAD = 4
+const  BAITFISHING = 5
 var character_state = WALKING
 
 func _enter_tree():
 	set_meta(&"character", self)
-	set_meta(&"interactable", [])
 
 func _physics_process(delta):
-	if HEALTH == 0:
-		die()
 	set_speed_based_on_state()
 	velocity = $BehaviorBaseNode.get_velocity() * speed 
 	if velocity.x < 0:
@@ -39,12 +37,10 @@ func _physics_process(delta):
 	if dragged != null:
 		velocity = dragged.get_velocity()
 		
+	$collisionBox.disabled = false 
 	move_and_slide()
-
-func equip(weapon: Node2D):
-	var weapon_dupe = weapon.duplicate()
-	weapon_dupe.name = &"weapon"
-	$WeaponsBaseNode.add_child(weapon_dupe)
+	if get_slide_collision_count() > 0:
+		print(get_slide_collision_count())
 	
 func die():
 	$sprite.play("dead")
@@ -54,15 +50,9 @@ func die():
 	#TODO extract this into behaviors
 	remove_meta(&"interactable")
 	set_meta(&"interactable", [&"draggable", &"butcherable"])
-	motion_mode = CharacterBody2D.MOTION_MODE_GROUNDED
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	$hurtbox/hurtBoxCollisionShape.disabled = true
 	pass
-	
-func get_weapon():
-	var weapon = $WeaponsBaseNode.get_children()
-	if weapon.size() == 0:
-		return null
-	return weapon[0]
 	
 func take_damage(weapon: Weapon):
 	HEALTH -= weapon.get_damage()
@@ -94,15 +84,8 @@ func set_speed_based_on_state():
 			speed = BASE_SPEED * drag_modifier
 		DEAD:
 			speed = 0
-
-func detect(found:Node2D):
-	detected[found.get_instance_id()] = found
-
-func undetect(lost:Node2D):
-	detected.erase(lost.get_instance_id())
-
-func get_detected():
-	return detected
+		BAITFISHING:
+			speed = 0
 	
 func set_state(input_state):
 	character_state = input_state
@@ -125,10 +108,24 @@ func get_held_item():
 
 func drag(dragger):
 	dragged = dragger
+	pass
 
 func undrag():
 	print("undragd")
 	dragged = null
+	pass
 
 func get_collisionBox():
 	return $collisionBox
+	
+func get_interactables():
+	return interactables
+	
+func add_interactable(action, item):
+	interactables[item] = action
+	pass
+
+func remove_interactable(item):
+	interactables.erase(item)
+	pass
+	

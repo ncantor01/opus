@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://ccsxfhufvxyyt" path="res://scripts/character_scripts/behaviors/idle_movement_behavior/light_idle_movement_behavior.tscn" id="3_wbhkq"]
 [ext_resource type="Texture2D" uid="uid://dd4gwaj80iyi8" path="res://sprites/xzdm6zq0lh081.png" id="4_20kyh"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hgbhn"]
+radius = 1031.01
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6uk6"]
+size = Vector2(406, 221)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ilf3"]
 size = Vector2(117, 125)
 
@@ -174,13 +180,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6uk6"]
-size = Vector2(406, 221)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hgbhn"]
-radius = 1031.01
-
 [node name="prey" instance=ExtResource("1_kmg0h")]
+
+[node name="Smell#CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_hgbhn")
+
+[node name="Sight#CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(204, -1)
+shape = SubResource("RectangleShape2D_m6uk6")
 
 [node name="run_away_from_player" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_b6y30")]
 visible = false
@@ -194,19 +201,12 @@ unmoving_ticks = 45
 position = Vector2(0.5, -2.5)
 shape = SubResource("RectangleShape2D_0ilf3")
 
-[node name="collisionBox" parent="." index="3"]
+[node name="collisionBox" parent="." index="4"]
 position = Vector2(0, -1.5)
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="sprite" parent="." index="4"]
+[node name="sprite" parent="." index="5"]
 position = Vector2(10, -23)
 scale = Vector2(2.7381, 2.7381)
 sprite_frames = SubResource("SpriteFrames_tutpt")
 animation = &"dead"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sight" index="0"]
-position = Vector2(204, -1)
-shape = SubResource("RectangleShape2D_m6uk6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Smell" index="0"]
-shape = SubResource("CircleShape2D_hgbhn")

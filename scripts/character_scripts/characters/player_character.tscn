@@ -1,14 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://312wytljmfbp"]
+[gd_scene load_steps=5 format=3 uid="uid://312wytljmfbp"]
 
 [ext_resource type="PackedScene" uid="uid://bwhfee4r2o2ya" path="res://scripts/character_scripts/characters/character_base_node/Character_base_node.tscn" id="1_vcfl7"]
 [ext_resource type="PackedScene" uid="uid://bxee828oqj0ky" path="res://scripts/character_scripts/behaviors/player_movement_behavior/player_movement_behavior.tscn" id="2_kq1t5"]
-[ext_resource type="Script" path="res://scripts/character_scripts/characters/player_character_debug.gd" id="3_lhhdl"]
-[ext_resource type="PackedScene" uid="uid://ciwi7sa65cxtt" path="res://scripts/weapons/spear/spear.tscn" id="4_hgvi0"]
 [ext_resource type="Texture2D" uid="uid://xirw3vkkv7wa" path="res://icon.svg" id="5_7qvpr"]
-[ext_resource type="Script" path="res://scripts/character_scripts/Emittor.gd" id="6_57qyy"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gx47t"]
-size = Vector2(137, 129)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vrb3i"]
 animations = [{
@@ -29,36 +23,29 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2deqc"]
-size = Vector2(162.5, 162.5)
-
 [node name="player_character" instance=ExtResource("1_vcfl7")]
 scale = Vector2(0.4, 0.4)
 metadata/Player = true
 
 [node name="PlayerMovementBehavior" parent="BehaviorBaseNode" index="0" instance=ExtResource("2_kq1t5")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox" index="0"]
-position = Vector2(2.5, 1.5)
-shape = SubResource("RectangleShape2D_gx47t")
-
-[node name="player_character_debug" type="Node2D" parent="." index="4"]
-script = ExtResource("3_lhhdl")
-
-[node name="spear" parent="player_character_debug" index="0" instance=ExtResource("4_hgvi0")]
-bonus_damage = null
-
-[node name="sprite" parent="." index="5"]
+[node name="sprite" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_vrb3i")
 animation = &"idle"
 
-[node name="Camera2D" type="Camera2D" parent="." index="6"]
+[node name="collisionBox" parent="." index="2"]
+one_way_collision_margin = 52.5
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
 zoom = Vector2(2, 2)
 
-[node name="Visual" type="Area2D" parent="." index="10"]
-script = ExtResource("6_57qyy")
-type = "visual"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visual" index="0"]
-position = Vector2(6.25001, 1.25001)
-shape = SubResource("RectangleShape2D_2deqc")
+[node name="BaitFishingUI" type="Label" parent="." index="4"]
+visible = false
+z_index = 5
+offset_left = -300.0
+offset_top = 83.0
+offset_right = -156.0
+offset_bottom = 106.0
+scale = Vector2(2.55608, 4.06622)
+text = "HELLO WORLD UWU"

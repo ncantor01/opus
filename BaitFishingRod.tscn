@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqbx4fvay82cg"]
+
+[ext_resource type="Script" path="res://BaitFishingRod.gd" id="1_ehjxj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqyen"]
+size = Vector2(30, 30)
+
+[node name="BaitFishingRod" type="Node2D"]
+script = ExtResource("1_ehjxj")
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="InteractAreaShape" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_tqyen")
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

@@ -1,6 +1,5 @@
 extends character_behavior
 
-var interactables = []
 var dragged = null
 
 # Called when the node enters the scene tree for the first time.
@@ -15,7 +14,7 @@ func _exit_tree():
 	
 func _physics_process(delta):
 	if Input.is_action_pressed("attack"):
-		owner.get_weapon().hold_attack(get_global_mouse_position())
+		print("poop")
 	pass
 
 func move():
@@ -26,40 +25,20 @@ func move():
 func _unhandled_input(event):
 	var direction_to_mouse = (get_viewport().get_mouse_position() - global_position).normalized()
 	if event.is_action_released("attack"):
-		owner.get_weapon().release_attack(Vector2.ZERO)
+		print("poop")
 	if event.is_action_pressed("interact"):
 		interact_handler()
 	if event.is_action_released("interact"):
-		print(dragged)
-		if dragged != null:
-			dragged.undrag()
-			dragged = null
-			owner.set_state(0)
+		pass
 	pass
 		
 func interact_handler():
-	var interactable = null
-	for i in interactables:
-		if i.has_meta(&"interactable"):
-			interactable = i
-			break
-	if interactable != null:
-		for j in interactable.get_meta(&"interactable"):
-			if j == &"draggable" and owner.get_held_item() == null:
-				interactable.drag(owner)
-				print(dragged)
-				dragged = interactable
-				owner.set_state(3)
+	var interactables = owner.get_interactables()
+	if interactables.values().has(&"BaitFish"):
+		owner.set_state(5)
+		bait_fish(interactables.find_key(&"BaitFish"))
 	pass
+	
+func bait_fish(rod):
+	owner.get_child(-1).show()
 
-func _on_interactable_area_body_entered(body):
-	print("iteractable in area")
-	interactables.append(body)
-	pass # Replace with function body.
-
-
-func _on_interactable_area_body_exited(body):
-	for i in range(interactables.size()):
-		if interactables[i] == body:
-			interactables.remove_at(i)
-	pass # Replace with function body.

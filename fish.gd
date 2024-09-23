@@ -1,8 +1,9 @@
-extends Node2D
+class_name Fish extends Node
 
-
+@export var strength = 10
+@export var stamina = 100
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
+func _ready():
 	pass # Replace with function body.
 
 

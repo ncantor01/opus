@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhkka8tprj4rv"]
+
+[ext_resource type="PackedScene" uid="uid://2edoy38akj22" path="res://boat.tscn" id="1_rnkdh"]
+[ext_resource type="PackedScene" uid="uid://312wytljmfbp" path="res://scripts/character_scripts/characters/player_character.tscn" id="2_cekld"]
+[ext_resource type="PackedScene" uid="uid://dqbx4fvay82cg" path="res://BaitFishingRod.tscn" id="3_2yswm"]
+
+[node name="level" type="Node2D"]
+
+[node name="Boat" parent="." instance=ExtResource("1_rnkdh")]
+
+[node name="player_character" parent="." instance=ExtResource("2_cekld")]
+visibility_layer = 3
+position = Vector2(0, 64)
+scale = Vector2(0.25, 0.25)
+collision_layer = 3
+collision_mask = 3
+wall_min_slide_angle = 3.14159
+platform_floor_layers = 4294967295
+safe_margin = 0.008
+
+[node name="BaitFishingRod" parent="." instance=ExtResource("3_2yswm")]
+position = Vector2(0, 98)
