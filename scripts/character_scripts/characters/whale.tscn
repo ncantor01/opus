@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://1smrdwya0gie"]
+
+[ext_resource type="Texture2D" uid="uid://xirw3vkkv7wa" path="res://icon.svg" id="1_djlw2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7pyr1"]
+size = Vector2(164, 49)
+
+[node name="Whale" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(72, 14.5)
+shape = SubResource("RectangleShape2D_7pyr1")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(72, 16)
+scale = Vector2(1.33594, 0.398438)
+texture = ExtResource("1_djlw2")
